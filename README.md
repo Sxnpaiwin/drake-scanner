@@ -4,24 +4,36 @@ Minecraft cheat-client detector — scans running `javaw.exe` / `java.exe` proce
 
 **This is the obfuscated public build.** The 388 client signatures and 407 generic module flags are GZip-compressed + Base64-encoded into a single blob, and the C# scanner engine is Base64-encoded. This makes it significantly harder for cheat developers to extract the signature list and develop bypasses.
 
-The plaintext/audit version is in a separate private repo — this repo only ships the obfuscated build.
-
 ## Download
 
 **[DrakeScanner.ps1](https://github.com/Sxnpaiwin/drake-scanner/releases/latest/download/DrakeScanner.ps1)** (~50 KB)
 
 ## Quick start
 
+**Option 1 — One-liner (easiest):**
+
+Copy and paste this into an elevated PowerShell window (right-click PowerShell → Run as administrator):
+
 ```powershell
-# Option 1: Download and run (one-liner)
-iwr "https://github.com/Sxnpaiwin/drake-scanner/releases/latest/download/DrakeScanner.ps1" | iex
-
-# Option 2: Right-click the .ps1 -> Run with PowerShell (accept UAC)
-
-# Option 3: From elevated PowerShell
-Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
-.\DrakeScanner.ps1
+& ([scriptblock]::Create((iwr "https://github.com/Sxnpaiwin/drake-scanner/releases/latest/download/DrakeScanner.ps1" -UseBasicParsing).Content))
 ```
+
+**Option 2 — Download then run:**
+
+```powershell
+# Download
+iwr "https://github.com/Sxnpaiwin/drake-scanner/releases/latest/download/DrakeScanner.ps1" -UseBasicParsing -OutFile DrakeScanner.ps1
+
+# Unblock (Windows marks downloaded scripts as untrusted)
+Unblock-File .\DrakeScanner.ps1
+
+# Run as administrator
+Start-Process powershell -Verb RunAs -ArgumentList "-NoExit -ExecutionPolicy Bypass -File .\DrakeScanner.ps1"
+```
+
+**Option 3 — Right-click:**
+
+Download `DrakeScanner.ps1`, right-click → **Run with PowerShell** (then accept the UAC prompt).
 
 ## Parameters
 
@@ -86,7 +98,7 @@ Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 
   >>> CHEATING DETECTED (31 matches) <<<
 
-  [*] Done. Press any key to exit...
+  [*] Done. Press ENTER to exit...
 ```
 
 ## Attribution
