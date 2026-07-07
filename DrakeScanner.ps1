@@ -9,14 +9,9 @@ param([switch]$JournalTrace, [switch]$NoScan)
 # ============================================================
 
 $AlWdETC3XEUTvI = ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
-if (-not $AlWdETC3XEUTvI) {
-    Write-Host ""
-    Write-Host "  WARNING: Not running as administrator." -ForegroundColor DarkYellow
-    Write-Host "  Memory scanning requires elevated permissions." -ForegroundColor DarkYellow
-    Write-Host ""
-    $r = Read-Host "  Continue anyway? (Y/N)"
-    if ($r -ne 'y' -and $r -ne 'Y') { exit }
-}
+# Admin is NOT required — OpenProcess(PROCESS_VM_READ) works without elevation
+# when the scanner and Minecraft run as the same user (the common case).
+# If OpenProcess fails, the scan silently returns empty results.
 
 # ----- Banner -----
 Write-Host ""

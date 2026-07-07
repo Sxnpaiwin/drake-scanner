@@ -47,7 +47,7 @@ Download `DrakeScanner.ps1`, right-click → **Run with PowerShell** (then accep
 
 - Windows 10 or later
 - PowerShell 5.1+ (built into Windows 10) or PowerShell 7+ (pwsh)
-- Administrator privileges recommended (script will prompt to continue without if not elevated)
+- No admin privileges required (works without elevation)
 - `Set-ExecutionPolicy` may need to be `RemoteSigned` or `Bypass` to run .ps1 files
 
 ## How it works
